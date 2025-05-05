@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS tb_links(
+    id INTEGER,
+    url VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT TIMESTAMP_CURRENT,
+    CONSTRAINT links_pk PRIMARY KEY(id),
+    CONSTRAINT unique_url UNIQUE(url),
+    CONSTRAINT unique_slug UNIQUE(slug),
+);
