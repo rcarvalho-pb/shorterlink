@@ -10,12 +10,17 @@ import (
 //go:embed files/*.sql
 var migrations embed.FS
 
-func MigrateUP(db *sql.DB, dialect string) error {
+type ConnectionOpts struct {
+	DB      *sql.DB
+	Dialect string
+}
+
+func MigrateUP(connOpts *ConnectionOpts) error {
 	goose.SetBaseFS(migrations)
-	if err := goose.SetDialect(dialect); err != nil {
+	if err := goose.SetDialect(connOpts.Dialect); err != nil {
 		return err
 	}
-	if err := goose.Up(db, "files"); err != nil {
+	if err := goose.Up(connOpts.DB, "files"); err != nil {
 		return err
 	}
 	return nil
